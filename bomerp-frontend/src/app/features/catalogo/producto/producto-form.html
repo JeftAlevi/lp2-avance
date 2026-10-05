@@ -1,0 +1,67 @@
+<form class="formulario-crud" [formGroup]="form" (ngSubmit)="guardar()">
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+  @if (categoriasCargadas() && categorias().length === 0) {
+    <p class="error">
+      No hay categorías registradas. Un producto necesita una categoría:
+      <a routerLink="/catalogo/categorias/nueva">crea una primero</a>.
+    </p>
+  }
+
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" formControlName="nombre" />
+    @if (mensajeValidacion('nombre'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Precio (S/)</mat-label>
+    <input matInput type="number" step="0.01" min="0" formControlName="precio" />
+    @if (mensajeValidacion('precio'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Stock</mat-label>
+    <input matInput type="number" step="1" min="0" formControlName="stock" />
+    @if (mensajeValidacion('stock'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Categoría</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoCategoria" formControlName="categoria" />
+    <mat-autocomplete #autoCategoria="matAutocomplete" [displayWith]="mostrarCategoria">
+      @for (categoria of categoriasFiltradas(); track categoria.id) {
+        <mat-option [value]="categoria">{{ categoria.nombre }}</mat-option>
+      } @empty {
+        <mat-option disabled>{{
+          categoriasCargadas() ? 'Sin coincidencias' : 'Categorías no disponibles'
+        }}</mat-option>
+      }
+    </mat-autocomplete>
+    @if (mensajeValidacion('categoria'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <div class="acciones">
+    <button
+      matButton="filled"
+      type="submit"
+      [disabled]="loading() || errorCarga() || categorias().length === 0"
+    >
+      Guardar
+    </button>
+    <button matButton type="button" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>

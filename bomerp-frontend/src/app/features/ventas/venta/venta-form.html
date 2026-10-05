@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <table formArrayName="detalles">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (linea of lineasForm.controls; track $index) {
+        <tr [formGroupName]="$index">
+          <td>
+            <select formControlName="productoId">
+              <option [ngValue]="0" disabled>Selecciona un producto</option>
+              @for (producto of productos(); track producto.id) {
+                <option [ngValue]="producto.id">{{ producto.nombre }}</option>
+              }
+            </select>
+          </td>
+          <td>
+            <input type="number" step="1" min="1" formControlName="cantidad" />
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</form>

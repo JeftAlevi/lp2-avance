@@ -1,0 +1,51 @@
+@if (loading()) {
+  <p>Cargando productos...</p>
+}
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+}
+
+<a matButton="filled" routerLink="/catalogo/productos/nuevo">Nuevo producto</a>
+
+<mat-form-field>
+  <mat-label>Filtrar por categoría</mat-label>
+  <mat-select [value]="0" (selectionChange)="filtrar($event.value)">
+    <mat-option [value]="0">Todas</mat-option>
+    @for (categoria of categorias(); track categoria.id) {
+      <mat-option [value]="categoria.id">{{ categoria.nombre }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (producto of productos(); track producto.id) {
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.categoria.nombre }}</td>
+        <td>{{ producto.precio | currency: 'PEN' : 'S/ ' }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>
+          <a matButton [routerLink]="['/catalogo/productos', producto.id, 'editar']">Editar</a>
+          <button matButton class="accion-eliminar" (click)="eliminar(producto.id)">Eliminar</button>
+        </td>
+      </tr>
+    } @empty {
+      @if (!loading() && !error()) {
+        <tr>
+          <td colspan="5">No hay productos registrados.</td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>

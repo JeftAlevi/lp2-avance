@@ -1,0 +1,26 @@
+<mat-toolbar class="header">
+  <a routerLink="/" class="home-link">
+    <img src="favicon.ico" alt="" height="30" />
+    <span>BomERP</span>
+  </a>
+  <span class="user">Usuario</span>
+</mat-toolbar>
+
+<div class="body">
+  <nav class="sidebar" aria-label="Menú principal">
+    <a routerLink="/catalogo/categorias" routerLinkActive="active">Categorías</a>
+    <a routerLink="/catalogo/productos" routerLinkActive="active">Productos</a>
+    <a routerLink="/ventas/nueva" routerLinkActive="active">Nueva venta</a>
+          <a routerLink="/ventas/reporte" routerLinkActive="active">Reporte de ventas</a>
+
+  </nav>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  <a routerLink="/ventas/nueva" routerLinkActive="active">Nueva venta</a>
+
+  <a routerLink="/ventas/nueva" routerLinkActive="active">Nueva venta</a>
+
+</div>

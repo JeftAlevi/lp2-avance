@@ -1,0 +1,30 @@
+<form class="formulario-crud" [formGroup]="form" (ngSubmit)="guardar()">
+  @if (loading()) {
+    <p>Cargando...</p>
+  }
+
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" formControlName="nombre" />
+    @if (mensajeValidacion('nombre'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="descripcion"></textarea>
+    @if (mensajeValidacion('descripcion'); as mensaje) {
+      <mat-error>{{ mensaje }}</mat-error>
+    }
+  </mat-form-field>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <div class="acciones">
+    <button matButton="filled" type="submit" [disabled]="loading() || errorCarga()">Guardar</button>
+    <button matButton type="button" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>

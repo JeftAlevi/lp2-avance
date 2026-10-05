@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+.error {
+  color: var(--mat-sys-error, #b42318);
+}
+
+/* mat-form-field es inline-block por defecto: dentro de un <form>, se apila en
+   una sola columna en vez de fluir en línea como encabezado de tabla. */
+.formulario-crud {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 340px;
+}
+
+.formulario-crud mat-form-field {
+  width: 100%;
+}
+
+.formulario-crud .acciones {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Reporte de ventas: separa visualmente cada venta de su detalle anidado,
+   que si no queda indistinguible de la fila de arriba (ver LP2 S9, 3.10). */
+.reporte-ventas {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reporte-ventas thead th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 2px solid #333;
+}
+
+.reporte-ventas .fila-venta {
+  border-top: 2px solid #ccc;
+}
+
+.reporte-ventas .fila-venta td {
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.reporte-ventas .fila-detalle td {
+  padding: 0 0.5rem 0.75rem 2rem;
+}
+
+.tabla-detalle {
+  width: 100%;
+  background: #f4f4f4;
+  border-radius: 4px;
+}
+
+.tabla-detalle th {
+  text-align: left;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #555;
+  padding: 0.25rem 0.5rem;
+}
+
+.tabla-detalle td {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9em;
+}
